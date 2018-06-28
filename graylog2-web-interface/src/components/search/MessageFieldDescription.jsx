@@ -75,11 +75,12 @@ const MessageFieldDescription = React.createClass({
   },
   render() {
     const className = this.props.fieldName === 'message' || this.props.fieldName === 'full_message' ? 'message-field' : '';
+    const fieldValueCustom = this.props.fieldName === 'traceback' ? this.props.fieldValue : this.props.possiblyHighlight(this.props.fieldName);
 
     return (
       <dd className={className} key={`${this.props.fieldName}dd`}>
         {this._getFormattedFieldActions()}
-        <div className="field-value">{this.props.possiblyHighlight(this.props.fieldName)}</div>
+        <div className="field-value">{fieldValueCustom}</div>
         {this._shouldShowTerms() &&
         <Alert bsStyle="info" onDismiss={() => this.setState({ messageTerms: Immutable.Map() })}>
           Field terms: &nbsp;{this._getFormattedTerms()}

@@ -31,6 +31,16 @@ const MessageField = React.createClass({
       innerValue = this.props.message.fields[key];
     }
 
+    // force linebreaks on traceback field
+    if(this.props.fieldName === 'traceback' && (typeof innerValue === 'string')){
+      innerValue = innerValue.replace(/#012/g, '\n');
+    }
+
+    // remove cut fields
+    if((typeof innerValue === 'string') && innerValue === 'fullyCutByExtractor'){
+      return (null);
+    }
+
     return (
       <span>
         <dt key={`${key}Title`}>{key}</dt>
